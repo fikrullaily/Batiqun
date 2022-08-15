@@ -4,11 +4,13 @@ import {
   DELETE_PRODUCTS,
   GET_PRODUCTS,
   PRODUCTS_ERROR,
+  GET_BY_ID_PRODUCTS
 } from "./types";
 
 const initialState = {
   products: [],
   product: {},
+  bitSuccessEdit: null,
   loading: true,
 };
 
@@ -18,6 +20,15 @@ export default function productReducer(state = initialState, action) {
       return {
         ...state,
         products: action.payload,
+        bitSuccessEdit: null,
+        loading: false,
+      };
+      
+    case GET_BY_ID_PRODUCTS:
+      return {
+        ...state,
+        product: action.payload,
+        bitSuccessEdit: null,
         loading: false,
       };
 
@@ -25,6 +36,7 @@ export default function productReducer(state = initialState, action) {
       return {
         ...state,
         products: state.products.concat(action.payload),
+        bitSuccessEdit: action.payload.bitSuccess,
         loading: false,
       };
 
